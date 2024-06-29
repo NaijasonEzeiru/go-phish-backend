@@ -1,0 +1,10 @@
+-- +goose Up 
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    username VARCHAR(30) UNIQUE NOT NULL,
+    password_hash VARCHAR(500) NOT NULL
+);
+-- +goose Down
+DROP TABLE users;

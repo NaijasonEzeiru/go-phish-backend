@@ -1,0 +1,167 @@
+basePath: /v1
+definitions:
+  github_com_naijasonezeiru_go-phish-backend_internal_api_helper.ErrResponse:
+    properties:
+      error:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  github_com_naijasonezeiru_go-phish-backend_internal_api_helper.User:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      jwt:
+        type: string
+      updated_at:
+        type: string
+      username:
+        type: string
+      victims:
+        items:
+          type: integer
+        type: array
+    type: object
+  internal_api_handler.successResponse:
+    properties:
+      message:
+        type: string
+      statusCode:
+        type: integer
+      token:
+        type: string
+    type: object
+host: localhost:8001
+info:
+  contact:
+    email: ezeiruchibuike@gmail.com
+    name: Chibby-k Ezeiru
+  description: |-
+    This is the backend server for joker phishing.
+    Disclaimer: This is not meant for mailicious activities.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Joker Phishing API
+  version: "1.0"
+paths:
+  /auth:
+    post:
+      consumes:
+      - application/json
+      description: login
+      parameters:
+      - description: Your Username
+        example: johndoe
+        in: formData
+        maxLength: 30
+        minLength: 4
+        name: username
+        required: true
+        type: string
+      - description: Your Password
+        example: password123
+        in: formData
+        maxLength: 30
+        minLength: 4
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.ErrResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.ErrResponse'
+      summary: user login
+      tags:
+      - users
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user
+      parameters:
+      - description: Your Username
+        example: johndoe
+        in: formData
+        maxLength: 30
+        minLength: 4
+        name: username
+        required: true
+        type: string
+      - description: Your Password
+        example: password123
+        in: formData
+        maxLength: 30
+        minLength: 4
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/internal_api_handler.successResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.ErrResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.ErrResponse'
+      summary: resgister user
+      tags:
+      - users
+  /users/me:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        OAuth protects our entity endpoints
+        Verifies user and returns the token bearer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.ErrResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_naijasonezeiru_go-phish-backend_internal_api_helper.ErrResponse'
+      summary: persist login
+      tags:
+      - users
+swagger: "2.0"

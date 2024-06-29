@@ -1,0 +1,10 @@
+.air.toml
+.env
+bin
+Makefile
+models.drawio
+sqlc.yaml
+tests.http
+tmp
+.dockerignore
+app.exe
