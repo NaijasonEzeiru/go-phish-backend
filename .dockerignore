@@ -5,5 +5,5 @@ Makefile
 models.drawio
 sqlc.yaml
 tests.http
+sql
 tmp
-app.exe

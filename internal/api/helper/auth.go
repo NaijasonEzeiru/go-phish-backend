@@ -21,8 +21,10 @@ func DecodeJWTToken(JWTToken string) (string, error) {
 	tokenAuth := jwtauth.New("HS256", []byte(jwtSecret), nil)
 
 	decodedToken, err := tokenAuth.Decode(JWTToken)
-	println(decodedToken, err)
-	return "naijason", nil
+	if err != nil {
+		return "", errors.New("invalid JWT token")
+	}
+	return decodedToken.PrivateClaims()["user_id"].(string), nil
 }
 
 // GetAPIKey extracts an API key from the headers of an HTTP request
